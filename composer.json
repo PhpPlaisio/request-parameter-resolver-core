@@ -8,6 +8,8 @@
     "parameter",
     "resolver"
   ],
+  "type": "library",
+  "license": "MIT",
   "require": {
     "php": ">=7.0.0",
     "setbased/abc-request-parameter-resolver": "^0.9.0"
@@ -16,16 +18,14 @@
     "phing/phing": "^2.0.0",
     "phpunit/phpunit": "^6.0.0"
   },
-  "autoload-dev": {
-    "psr-4": {
-      "SetBased\\Abc\\RequestParameterResolver\\Test\\": "test"
-    }
-  },
-  "type": "library",
-  "license": "MIT",
   "autoload": {
     "psr-4": {
       "SetBased\\Abc\\RequestParameterResolver\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SetBased\\Abc\\RequestParameterResolver\\Test\\": "test"
     }
   },
   "config": {
