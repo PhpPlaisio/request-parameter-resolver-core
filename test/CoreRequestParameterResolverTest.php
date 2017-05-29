@@ -1,12 +1,11 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-namespace SetBased\Abc\RequestParamterResolver;
+namespace SetBased\Abc\RequestParameterResolver\Test;
 
 use PHPUnit\Framework\TestCase;
 use SetBased\Abc\RequestParameterResolver\CoreRequestParameterResolver;
 
 //----------------------------------------------------------------------------------------------------------------------
-
 /**
  * Test cases for CoreRequestParameterResolverTest.
  */
