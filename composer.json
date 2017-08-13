@@ -1,12 +1,12 @@
 {
   "name": "setbased/abc-request-parameter-resolver-core",
-  "description": "ABC Framework: Core Request Parameter Resolver",
+  "description": "ABC-Framework: Core Request Parameter Resolver",
   "keywords": [
-    "framework",
-    "core",
-    "request",
-    "parameter",
-    "resolver"
+    "ABC-Framework",
+    "Rore",
+    "Request",
+    "Parameter",
+    "Resolver"
   ],
   "type": "library",
   "license": "MIT",

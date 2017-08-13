@@ -1,17 +1,13 @@
-<project name="Abc" default="build" basedir=".">
-    <property name="BUILD_DIR" value="./build"/>
-    <property name="VERSION" value="0.0.0"/>
-    <property name="RELEASE" value="0.0.0"/>
-    <property name="PRE_RELEASE" value=""/>
-
+<project name="ABC-Framework" default="build" basedir=".">
     <!-- Run composer update and executes various other updates -->
     <target name="update">
-    <exec command="composer update" checkreturn="true" passthru="true"/>
+        <exec command="composer update" checkreturn="true" passthru="true"/>
     </target>
 
     <!-- Runs ApiGen -->
     <target name="apigen">
-        <exec command="apigen generate --todo --tree --source src --destination doc" passthru="true" checkreturn="true"/>
+        <exec command="apigen generate --todo --tree --source src --destination doc" passthru="true"
+              checkreturn="true"/>
     </target>
 
     <!-- Runs all unit tests -->
