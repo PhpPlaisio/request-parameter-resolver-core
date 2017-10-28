@@ -3,7 +3,7 @@
   "description": "ABC-Framework: Core Request Parameter Resolver",
   "keywords": [
     "ABC-Framework",
-    "Rore",
+    "Core",
     "Request",
     "Parameter",
     "Resolver"
@@ -12,7 +12,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.0.0",
-    "setbased/abc-request-parameter-resolver": "^0.9.0"
+    "setbased/abc-request-parameter-resolver": "^1.0.0"
   },
   "require-dev": {
     "phing/phing": "^2.0.0",
