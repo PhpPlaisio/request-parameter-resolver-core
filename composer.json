@@ -25,7 +25,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "SetBased\\Abc\\RequestParameterResolver\\Test\\": "test"
+      "SetBased\\Abc\\RequestParameterResolver\\Test\\": "test/"
     }
   },
   "config": {
