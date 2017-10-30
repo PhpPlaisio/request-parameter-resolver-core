@@ -43,18 +43,18 @@ class CoreRequestParameterResolver implements RequestParameterResolver
   {
     $this->partialise();
     $this->handleSpecials();
-    $this->enhanceGet1();
-    $this->enhanceGet2();
+    $this->enhanceGetKeyValue();
+    $this->enhanceGetSpecial();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Enhances $_GET with the parameters in the clean URL.
+   * Enhances $_GET with parameters given as key-value pairs in the clean URL.
    *
    * @api
    * @since 1.0.0
    */
-  protected function enhanceGet1()
+  protected function enhanceGetKeyValue()
   {
     // Ensure that $this->parts has an even amount of elements.
     if (count($this->parts) % 2!=0) $this->parts[] = '';
@@ -73,11 +73,36 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  protected function enhanceGet2()
+  protected function enhanceGetSpecial()
   {
-    foreach($this->specials as $key => $value)
+    foreach ($this->specials as $key => $value)
     {
       $_GET[$key] = $value ?? '';
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Handles specials cases of the request URI.
+   *
+   * A normal request URI has the form /key1/value1/key2/value2/... other cases are special cases.
+   *
+   * This method handles to following special cases:
+   * <ul>
+   * <li> /pag_alias/key1/value1/key2/value2/...
+   * </ul>
+   *
+   * @api
+   * @since 1.0.0
+   */
+  protected function handleSpecials()
+  {
+    if (empty($this->parts)) return;
+
+    if ($this->parts[0]!='pag')
+    {
+      $this->specials['pag_alias'] = urldecode($this->parts[0]);
+      array_shift($this->parts);
     }
   }
 
@@ -106,31 +131,6 @@ class CoreRequestParameterResolver implements RequestParameterResolver
     else
     {
       $this->parts = explode('/', $url);
-    }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Handles specials cases of the request URI.
-   *
-   * A normal request URI has the form /key1/value1/key2/value2/... other cases are special cases.
-   *
-   * This method handles to following special cases:
-   * <ul>
-   * <li> /pag_alias/key1/value1/key2/value2/...
-   * </ul>
-   *
-   * @api
-   * @since 1.0.0
-   */
-  protected function handleSpecials()
-  {
-    if (empty($this->parts)) return;
-
-    if ($this->parts[0]!='pag')
-    {
-      $this->specials['pag_alias'] = urldecode($this->parts[0]);
-      array_shift($this->parts);
     }
   }
 
