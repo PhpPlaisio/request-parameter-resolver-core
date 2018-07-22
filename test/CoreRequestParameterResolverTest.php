@@ -1,11 +1,11 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+declare(strict_types=1);
+
 namespace SetBased\Abc\RequestParameterResolver\Test;
 
 use PHPUnit\Framework\TestCase;
 use SetBased\Abc\RequestParameterResolver\CoreRequestParameterResolver;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * Test cases for CoreRequestParameterResolverTest.
  */
@@ -19,8 +19,7 @@ class CoreRequestParameterResolverTest extends TestCase
   {
     parent::setUp();
 
-    $_GET    = [];
-    $_SERVER = [];
+    $_GET = [];
   }
 
   //--------------------------------------------------------------------------------------------------------------------

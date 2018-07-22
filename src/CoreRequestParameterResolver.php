@@ -1,8 +1,8 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+declare(strict_types=1);
+
 namespace SetBased\Abc\RequestParameterResolver;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * A plain RequestParameterResolver for resolving the URL parameters from a clean URL without any additional
  * functionalities.
