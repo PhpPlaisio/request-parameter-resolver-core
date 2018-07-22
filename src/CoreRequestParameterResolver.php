@@ -39,7 +39,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  public function resolveRequestParameters()
+  public function resolveRequestParameters(): void
   {
     $this->partialise();
     $this->handleSpecials();
@@ -54,7 +54,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  protected function enhanceGetKeyValue()
+  protected function enhanceGetKeyValue(): void
   {
     // Ensure that $this->parts has an even amount of elements.
     if (count($this->parts) % 2!=0) $this->parts[] = '';
@@ -73,7 +73,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  protected function enhanceGetSpecial()
+  protected function enhanceGetSpecial(): void
   {
     foreach ($this->specials as $key => $value)
     {
@@ -95,7 +95,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  protected function handleSpecials()
+  protected function handleSpecials(): void
   {
     if (empty($this->parts)) return;
 
@@ -113,7 +113,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    * @api
    * @since 1.0.0
    */
-  protected function partialise()
+  protected function partialise(): void
   {
     $url = $_SERVER['REQUEST_URI'] ?? '';
 
