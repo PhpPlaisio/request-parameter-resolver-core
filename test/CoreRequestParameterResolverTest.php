@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace SetBased\Abc\RequestParameterResolver\Test;
 
 use PHPUnit\Framework\TestCase;
+use SetBased\Abc\Abc;
+use SetBased\Abc\Request\CoreRequest;
 use SetBased\Abc\RequestParameterResolver\CoreRequestParameterResolver;
 
 /**
@@ -18,6 +20,8 @@ class CoreRequestParameterResolverTest extends TestCase
   public function setUp()
   {
     parent::setUp();
+
+    Abc::$request = new CoreRequest();
 
     $_GET = [];
   }

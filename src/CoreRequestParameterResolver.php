@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace SetBased\Abc\RequestParameterResolver;
 
+use SetBased\Abc\Abc;
+
 /**
  * A plain RequestParameterResolver for resolving the URL parameters from a clean URL without any additional
  * functionalities.
@@ -115,22 +117,21 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    */
   protected function partialise(): void
   {
-    $url = $_SERVER['REQUEST_URI'] ?? '';
+    $uri = Abc::$request->getRequestUri();
 
-    // Under Nginx REQUEST_URI includes arguments.
-    if (strpos($_SERVER['REQUEST_URI'], '?')!==false)
+    if (strpos($uri, '?')!==false)
     {
-      $url = strstr($_SERVER['REQUEST_URI'], '?', true);
+      $uri = strstr($uri, '?', true);
     }
 
-    $url = trim($url, '/');
-    if ($url==='')
+    $uri = trim($uri, '/');
+    if ($uri==='')
     {
       $this->parts = [];
     }
     else
     {
-      $this->parts = explode('/', $url);
+      $this->parts = explode('/', $uri);
     }
   }
 
