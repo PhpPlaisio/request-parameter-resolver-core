@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\RequestParameterResolver;
+namespace Plaisio\RequestParameterResolver;
 
-use SetBased\Abc\Abc;
+use Plaisio\Kernel\Nub;
 
 /**
  * A plain RequestParameterResolver for resolving the URL parameters from a clean URL without any additional
@@ -117,7 +117,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    */
   protected function partialise(): void
   {
-    $uri = Abc::$request->getRequestUri();
+    $uri = Nub::$request->getRequestUri();
 
     if (strpos($uri, '?')!==false)
     {

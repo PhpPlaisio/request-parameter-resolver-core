@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\RequestParameterResolver\Test;
+namespace Plaisio\RequestParameterResolver\Test;
 
 use PHPUnit\Framework\TestCase;
-use SetBased\Abc\Abc;
-use SetBased\Abc\Request\CoreRequest;
-use SetBased\Abc\RequestParameterResolver\CoreRequestParameterResolver;
+use Plaisio\Kernel\Nub;
+use Plaisio\Request\CoreRequest;
+use Plaisio\RequestParameterResolver\CoreRequestParameterResolver;
 
 /**
  * Test cases for CoreRequestParameterResolverTest.
@@ -21,7 +21,7 @@ class CoreRequestParameterResolverTest extends TestCase
   {
     parent::setUp();
 
-    Abc::$request = new CoreRequest();
+    Nub::$request = new CoreRequest();
 
     $_GET = [];
   }
