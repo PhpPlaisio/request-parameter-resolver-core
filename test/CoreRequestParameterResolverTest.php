@@ -17,7 +17,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Ensures $_GET and $_SERVER are empty arrays.
    */
-  public function setUp()
+  public function setUp(): void
   {
     parent::setUp();
 
@@ -30,7 +30,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test with missing value.
    */
-  public function testMissingEmptyValue1()
+  public function testMissingEmptyValue1(): void
   {
     $params = ['pag' => '123', 'key1' => '', 'key2' => 'value2'];
 
@@ -47,7 +47,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test with missing value.
    */
-  public function testMissingValue1()
+  public function testMissingValue1(): void
   {
     $params = ['pag' => '123', 'key' => ''];
 
@@ -64,7 +64,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test with missing value.
    */
-  public function testMissingValue2()
+  public function testMissingValue2(): void
   {
     $params = ['pag' => '123', 'key' => ''];
 
@@ -81,7 +81,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test parameters are urldecoded.
    */
-  public function testRequestDecoding1()
+  public function testRequestDecoding1(): void
   {
     $params = ['pag' => '123', 'redirect' => '/', 'bull' => '!@#$%^&*(); &amp;'];
 
@@ -97,7 +97,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test / is requested.
    */
-  public function testRequestHome1()
+  public function testRequestHome1(): void
   {
     $_SERVER['REQUEST_URI'] = '/';
 
@@ -111,7 +111,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test / is requested with CGI parameters.
    */
-  public function testRequestHome2()
+  public function testRequestHome2(): void
   {
     $params = ['a' => '1', 'b' => '2'];
 
@@ -128,7 +128,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test / is requested with CGI parameters.
    */
-  public function testRequestHome3()
+  public function testRequestHome3(): void
   {
     $params = ['a' => '1', 'b' => '2'];
 
@@ -145,7 +145,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test /login is requested with CGI parameter ending with /.
    */
-  public function testRequestHome4()
+  public function testRequestHome4(): void
   {
     $params = ['pag_alias' => 'login', 'redirect' => '/'];
 
@@ -161,7 +161,7 @@ class CoreRequestParameterResolverTest extends TestCase
   /**
    * Test page with (obfuscated) ID 123 is requested with CGI parameter ending with /.
    */
-  public function testRequestPage1()
+  public function testRequestPage1(): void
   {
     $params = ['pag' => '123', 'redirect' => '/'];
 
