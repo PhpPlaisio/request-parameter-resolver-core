@@ -8,13 +8,13 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.1.0",
-    "plaisio/kernel": "^1.0.0",
-    "plaisio/request-parameter-resolver": "^1.0.0"
+    "php": ">=7.3",
+    "plaisio/kernel": "^1.0",
+    "plaisio/request-parameter-resolver": "^1.0"
   },
   "require-dev": {
-    "phing/phing": "^2.0.0",
-    "phpunit/phpunit": "^7.0.0 || ^8.0.0",
+    "phing/phing": "^2.0",
+    "phpunit/phpunit": "^9.0",
     "plaisio/request-core": "^0.10.0"
   },
   "autoload": {
@@ -28,6 +28,7 @@
     }
   },
   "config": {
-    "bin-dir": "bin/"
+    "bin-dir": "bin/",
+    "sort-packages": true
   }
 }
