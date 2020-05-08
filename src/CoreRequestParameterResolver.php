@@ -117,7 +117,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    */
   protected function partialise(): void
   {
-    $uri = Nub::$request->getRequestUri();
+    $uri = Nub::$nub->request->getRequestUri();
 
     if (strpos($uri, '?')!==false)
     {

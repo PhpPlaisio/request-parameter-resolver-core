@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Plaisio\RequestParameterResolver\Test;
 
 use PHPUnit\Framework\TestCase;
-use Plaisio\Kernel\Nub;
-use Plaisio\Request\CoreRequest;
 use Plaisio\RequestParameterResolver\CoreRequestParameterResolver;
 
 /**
@@ -15,13 +13,20 @@ class CoreRequestParameterResolverTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Ensures $_GET and $_SERVER are empty arrays.
+   * The kernel for testing purposes.
+   *
+   * @var TestKernel
+   */
+  private $kernel;
+
+  //--------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * @inheritDoc
    */
   public function setUp(): void
   {
-    parent::setUp();
-
-    Nub::$request = new CoreRequest();
+    $this->kernel = new TestKernel();
 
     $_GET = [];
   }
