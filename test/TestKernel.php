@@ -3,24 +3,15 @@ declare(strict_types=1);
 
 namespace Plaisio\RequestParameterResolver\Test;
 
-use Plaisio\Kernel\Nub;
+use Plaisio\PlaisioKernel;
 use Plaisio\Request\CoreRequest;
 use Plaisio\Request\Request;
 
 /**
  * Kernel for testing purposes.
  */
-class TestKernel extends Nub
+class TestKernel extends PlaisioKernel
 {
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Object constructor.
-   */
-  public function __construct()
-  {
-    parent::__construct();
-  }
-
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * Returns the helper object for providing information about the HTTP request.

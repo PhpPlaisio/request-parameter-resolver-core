@@ -9,12 +9,14 @@
   "license": "MIT",
   "require": {
     "php": ">=7.3",
-    "plaisio/kernel": "^2.0",
+    "plaisio/kernel": "^3.0",
+    "plaisio/request": "^0.10.3",
     "plaisio/request-parameter-resolver": "^1.1"
   },
   "require-dev": {
     "phing/phing": "^2.0",
     "phpunit/phpunit": "^9.0",
+    "plaisio/console": "^2.0",
     "plaisio/request-core": "^0.10.1"
   },
   "autoload": {

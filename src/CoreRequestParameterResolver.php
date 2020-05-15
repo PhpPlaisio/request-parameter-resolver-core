@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Plaisio\RequestParameterResolver;
 
-use Plaisio\Kernel\Nub;
+use Plaisio\PlaisioObject;
 
 /**
  * A plain RequestParameterResolver for resolving the URL parameters from a clean URL without any additional
  * functionalities.
  */
-class CoreRequestParameterResolver implements RequestParameterResolver
+class CoreRequestParameterResolver extends PlaisioObject implements RequestParameterResolver
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -117,7 +117,7 @@ class CoreRequestParameterResolver implements RequestParameterResolver
    */
   protected function partialise(): void
   {
-    $uri = Nub::$nub->request->getRequestUri();
+    $uri = $this->nub->request->getRequestUri();
 
     if (strpos($uri, '?')!==false)
     {
