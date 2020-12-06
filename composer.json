@@ -10,14 +10,14 @@
   "require": {
     "php": ">=7.4",
     "plaisio/kernel": "^3.1.1",
-    "plaisio/request": "^0.11",
+    "plaisio/request": "^0.13.0",
     "plaisio/request-parameter-resolver": "^1.2"
   },
   "require-dev": {
     "phing/phing": "^2.16.3",
     "phpunit/phpunit": "^9.5",
-    "plaisio/console": "^2.2.6",
-    "plaisio/request-core": "^0.11"
+    "plaisio/console": "^2.4.6",
+    "plaisio/request-core": "^0.13.0"
   },
   "autoload": {
     "psr-4": {
