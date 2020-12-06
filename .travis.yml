@@ -1,9 +1,9 @@
 language: php
 php:
-  - '7.3'
   - '7.4'
 
 install:
+  - pecl install inotify
   - composer self-update
   - composer install
 
