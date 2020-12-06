@@ -17,7 +17,7 @@ class CoreRequestParameterResolverTest extends TestCase
    *
    * @var TestKernel
    */
-  private $kernel;
+  private TestKernel $kernel;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

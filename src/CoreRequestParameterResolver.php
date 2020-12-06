@@ -20,7 +20,7 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
    * @api
    * @since 1.0.0
    */
-  protected $parts;
+  protected array $parts;
 
   /**
    * Special parts of the URI. Map from key to value.
@@ -30,7 +30,7 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
    * @api
    * @since 1.0.0
    */
-  protected $specials = [];
+  protected array $specials = [];
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

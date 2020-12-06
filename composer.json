@@ -8,15 +8,15 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.3",
-    "plaisio/kernel": "^3.0",
+    "php": ">=7.4",
+    "plaisio/kernel": "^3.1.1",
     "plaisio/request": "^0.11",
     "plaisio/request-parameter-resolver": "^1.2"
   },
   "require-dev": {
-    "phing/phing": "^2.0",
-    "phpunit/phpunit": "^9.0",
-    "plaisio/console": "^2.0",
+    "phing/phing": "^2.16.3",
+    "phpunit/phpunit": "^9.5",
+    "plaisio/console": "^2.2.6",
     "plaisio/request-core": "^0.11"
   },
   "autoload": {
