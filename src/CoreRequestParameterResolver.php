@@ -119,7 +119,7 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
   {
     $uri = $this->nub->request->getRequestUri();
 
-    if (strpos($uri, '?')!==false)
+    if (str_contains($uri, '?'))
     {
       $uri = strstr($uri, '?', true);
     }
