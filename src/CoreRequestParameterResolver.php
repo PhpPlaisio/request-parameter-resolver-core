@@ -117,7 +117,7 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
    */
   protected function partialise(): void
   {
-    $uri = $this->nub->request->getRequestUri();
+    $uri = $this->nub->request->requestUri;
 
     if (str_contains($uri, '?'))
     {
