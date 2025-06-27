@@ -13,38 +13,15 @@ class CoreRequestParameterResolverTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * The kernel for testing purposes.
-   *
-   * @var TestKernel
-   */
-  private TestKernel $kernel;
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * @inheritDoc
-   */
-  public function setUp(): void
-  {
-    $this->kernel = new TestKernel();
-
-    $_GET = [];
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
    * Test with missing value.
    */
   public function testMissingEmptyValue1(): void
   {
-    $params = ['pag' => '123', 'key1' => '', 'key2' => 'value2'];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/pag/123/key1//key2/value2');
 
-    $_SERVER['REQUEST_URI'] = '/pag/123/key1//key2/value2';
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
-    $this->assertSame('', $_GET['key1']);
+    $this->assertEquals(['pag' => '123', 'key1' => '', 'key2' => 'value2'], $get);
+    $this->assertSame('', $get['key1']);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -53,15 +30,11 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testMissingValue1(): void
   {
-    $params = ['pag' => '123', 'key' => ''];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/pag/123/key');
 
-    $_SERVER['REQUEST_URI'] = '/pag/123/key';
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
-    $this->assertSame('', $_GET['key']);
+    $this->assertEquals(['pag' => '123', 'key' => ''], $get);
+    $this->assertSame('', $get['key']);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -70,15 +43,11 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testMissingValue2(): void
   {
-    $params = ['pag' => '123', 'key' => ''];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/pag/123/key/');
 
-    $_SERVER['REQUEST_URI'] = '/pag/123/key/';
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
-    $this->assertSame('', $_GET['key']);
+    $this->assertEquals(['pag' => '123', 'key' => ''], $get);
+    $this->assertSame('', $get['key']);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -87,14 +56,11 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testRequestDecoding1(): void
   {
-    $params = ['pag' => '123', 'redirect' => '/', 'bull' => '!@#$%^&*(); &amp;'];
+    $requestUri = '/pag/123/bull/'.urlencode('!@#$%^&*(); &amp;').'/redirect/'.urlencode('/');
+    $resolver   = new CoreRequestParameterResolver();
+    $get        = $resolver->resolveRequestParameters($requestUri);
 
-    $_SERVER['REQUEST_URI'] = '/pag/123/bull/'.urlencode('!@#$%^&*(); &amp;').'/redirect'.'/'.urlencode('/');
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
+    $this->assertEquals(['pag' => '123', 'redirect' => '/', 'bull' => '!@#$%^&*(); &amp;'], $get);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -103,29 +69,10 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testRequestHome1(): void
   {
-    $_SERVER['REQUEST_URI'] = '/';
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/');
 
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertSame([], $_GET);
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test / is requested with CGI parameters.
-   */
-  public function testRequestHome2(): void
-  {
-    $params = ['a' => '1', 'b' => '2'];
-
-    $_SERVER['REQUEST_URI'] = '/';
-    $_GET                   = $params;
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertSame($params, $_GET);
+    $this->assertSame([], $get);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -134,15 +81,10 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testRequestHome3(): void
   {
-    $params = ['a' => '1', 'b' => '2'];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/?a=1;b=2');
 
-    $_SERVER['REQUEST_URI'] = '/?a=1;b=2';
-    $_GET                   = $params;
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertSame($params, $_GET);
+    $this->assertSame([], $get);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -151,14 +93,10 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testRequestHome4(): void
   {
-    $params = ['pag_alias' => 'login', 'redirect' => '/'];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/login/redirect/'.urlencode('/'));
 
-    $_SERVER['REQUEST_URI'] = '/login/redirect'.'/'.urlencode('/');
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
+    $this->assertEquals(['pag_alias' => 'login', 'redirect' => '/'], $get);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -167,17 +105,14 @@ class CoreRequestParameterResolverTest extends TestCase
    */
   public function testRequestPage1(): void
   {
-    $params = ['pag' => '123', 'redirect' => '/'];
+    $resolver = new CoreRequestParameterResolver();
+    $get      = $resolver->resolveRequestParameters('/pag/123/redirect/'.urlencode('/'));
 
-    $_SERVER['REQUEST_URI'] = '/pag/123/redirect'.'/'.urlencode('/');
-
-    $resolver = new CoreRequestParameterResolver($this->kernel);
-    $resolver->resolveRequestParameters();
-
-    $this->assertEquals($params, $_GET);
+    $this->assertEquals(['pag' => '123', 'redirect' => '/'], $get);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
 }
+
 
 //----------------------------------------------------------------------------------------------------------------------

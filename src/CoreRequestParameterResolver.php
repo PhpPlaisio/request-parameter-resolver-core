@@ -3,74 +3,76 @@ declare(strict_types=1);
 
 namespace Plaisio\RequestParameterResolver;
 
-use Plaisio\PlaisioObject;
-
 /**
  * A plain RequestParameterResolver for resolving the URL parameters from a clean URL without any additional
  * functionalities.
  */
-class CoreRequestParameterResolver extends PlaisioObject implements RequestParameterResolver
+class CoreRequestParameterResolver implements RequestParameterResolver
 {
   //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * The CGI variables extracted from the clean URL.
+   *
+   * @var array
+   */
+  private array $cgi = [];
+
   /**
    * The parts of the URI.
    *
    * @var string[]
-   *
-   * @api
-   * @since 1.0.0
    */
-  protected array $parts;
+  private array $parts;
 
   /**
    * Special parts of the URI. Map from key to value.
    *
    * @var array
-   *
-   * @api
-   * @since 1.0.0
    */
-  protected array $specials = [];
+  private array $specials = [];
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Resolves the parameters of a clean URL and enhances $_GET accordingly.
-   *
-   * @return void
+   * Resolves the parameters of a clean URL and enhances $this->get accordingly.
    *
    * @api
-   * @since 1.0.0
+   * @since 2.0.0
    */
-  public function resolveRequestParameters(): void
+  public function resolveRequestParameters(string $requestUri): array
   {
-    $this->partialise();
+    $this->partialise($requestUri);
     $this->handleSpecials();
     $this->enhanceGetKeyValue();
     $this->enhanceGetSpecial();
+
+    return $this->cgi;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Enhances $_GET with parameters given as key-value pairs in the clean URL.
+   * Enhances $this->get with parameters given as key-value pairs in the clean URL.
    *
    * @api
    * @since 1.0.0
    */
   protected function enhanceGetKeyValue(): void
   {
-    // Ensure that $this->parts has an even amount of elements.
-    if (count($this->parts) % 2!=0) $this->parts[] = '';
+    // Ensure that $this->parts has an even number of elements.
+    if (count($this->parts) % 2!=0)
+    {
+      $this->parts[] = '';
+    }
 
     $n = count($this->parts);
     for ($i = 0; $i<$n; $i += 2)
     {
-      $_GET[urldecode($this->parts[$i])] = urldecode($this->parts[$i + 1]);
+      $this->cgi[urldecode($this->parts[$i])] = urldecode($this->parts[$i + 1]);
     }
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Enhances $_GET with the special parameters in the clean URL.
+   * Enhances $this->get with the special parameters in the clean URL.
    *
    * @api
    * @since 1.0.0
@@ -79,17 +81,17 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
   {
     foreach ($this->specials as $key => $value)
     {
-      $_GET[$key] = $value ?? '';
+      $this->cgi[$key] = $value ?? '';
     }
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Handles specials cases of the request URI.
+   * Handles special cases of the request URI.
    *
    * A normal request URI has the form /key1/value1/key2/value2/... other cases are special cases.
    *
-   * This method handles to following special cases:
+   * This method handles the following special cases:
    * <ul>
    * <li> /pag_alias/key1/value1/key2/value2/...
    * </ul>
@@ -99,9 +101,12 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
    */
   protected function handleSpecials(): void
   {
-    if (empty($this->parts)) return;
+    if (empty($this->parts))
+    {
+      return;
+    }
 
-    if ($this->parts[0]!='pag')
+    if ($this->parts[0]!=='pag')
     {
       $this->specials['pag_alias'] = urldecode($this->parts[0]);
       array_shift($this->parts);
@@ -115,23 +120,21 @@ class CoreRequestParameterResolver extends PlaisioObject implements RequestParam
    * @api
    * @since 1.0.0
    */
-  protected function partialise(): void
+  protected function partialise(string $requestUri): void
   {
-    $uri = $this->nub->request->requestUri;
-
-    if (str_contains($uri, '?'))
+    if (str_contains($requestUri, '?'))
     {
-      $uri = strstr($uri, '?', true);
+      $requestUri = strstr($requestUri, '?', true);
     }
 
-    $uri = trim($uri, '/');
-    if ($uri==='')
+    $requestUri = trim($requestUri, '/');
+    if ($requestUri==='')
     {
       $this->parts = [];
     }
     else
     {
-      $this->parts = explode('/', $uri);
+      $this->parts = explode('/', $requestUri);
     }
   }
 
